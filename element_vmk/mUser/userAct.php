@@ -1,5 +1,4 @@
-<<?php
-session_start();
+<?php
 require '../mod/userCls.php';
 if (isset($_REQUEST['reqact'])) {
     $requestAction = $_REQUEST['reqact'];
@@ -37,10 +36,10 @@ if (isset($_REQUEST['reqact'])) {
             break;
         case 'setlock':
             $iduser = $_REQUEST['iduser'];
-            $abtility = $_REQUEST['abtility'];
+            $ability = $_REQUEST['ability'];
             $user = new userCls();
 
-            if ($abtility == 0) {
+            if ($ability == 0) {
                 $rs = $user->UserSetActive($iduser, 1);
             }
             else {
@@ -109,8 +108,6 @@ if (isset($_REQUEST['reqact'])) {
             }
 
             setcookie($namelogin, $timelogin, time() + (86400 * 30), "/");
-
-            session_destroy();
             header('location:../../index.php?');
             break;
         default:
