@@ -9,52 +9,68 @@
     <script src="js_vmk/jquery-3.6.4.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
-            // alert("JQ Da Chay Roi!");
-            $("p").mouseenter(function() {
-                $(this).css("color", "#00FF00");
-            });
-            $("p").mouseleave(function() {
-                $(this).css("color", "#000066");
-            });
-            $(".cls01").mouseenter(function() {
-                $(this).css("color", "FF0000");
-            });;
-            $(".cls01").mouseenter(function() {
-                $(this).css("color", "0000FF");
-            });
-            $("#id01").mouseenter(function() {
-                $(this).css("color", "#AA00BB");
-                $(this).css("font-weight", "bold");
-            });
-            $("#id01").mouseleave(function() {
-                $(this).css("color", "#BB0000");
-                $(this).css("font-weight", "normal");
-            });
-            $(".itmOrder").hide();
-            $(".cateOrder").click(function(){
-                $(this).slideUp();
-            });
-            $("itemOrder").mouseleave(function(){
-                $(this).slideUp();
-            });
-            $(".imgCls").mouseover(function(){
-                var s = $(this).attr('src');
-                // alert(s);
-                $("#imgView").attr('src',s);
-            });
-            var s = $("#DivList").children();
-            var l = s.length;
-            var i = 0;
-            setInterval(function(){
-                if (i === 1 )
-                    i = 0;
-                var p = $(s[i]).attr('src');
-                $("#ingView").attr('src',p);
-                i++;    
-            },3000);
+            // alert('Hello')
+            // Chọn tất cả thẻ p và áp dụng sự kiện
+            $('p').mouseenter(function() {
+                $(this).css('color', '#00FF00')
+            })
+            $('p').mouseleave(function() {
+                $(this).css('color', '#000066')
+            })
+            // truy cập đối tượng bằng class
+            $('.cls01').mouseenter(function() {
+                $(this).css('color', '#FF0000')
+            })
+            $('.cls01').mouseleave(function() {
+                $(this).css('color', '#0000FF')
+            })
+            // truy cập đối tượng bằng id
+            $('#id01').mouseenter(function() {
+                $(this).css('color', '#AA00BB')
+                $(this).css('font-weight', 'bold')
+            })
+            $('#id01').mouseleave(function() {
+                $(this).css('color', '#BB0000')
+                $(this).css('font-weight', 'normal')
+
+            })
+
+            //menu
+            $('.itemOrder').hide()
+            $('.cateOrder').click(function() {
+                $(this).next().slideDown()
+            })
+            $('.itemOrder').mouseleave(function() {
+                $(this).slideUp()
+            })
+
+            // slide image
+            $('.imgCls').mouseover(function() {
+                var s = $(this).attr('src')
+                $('#imgView').attr('src', s)
+            })
+
+            var s = $("#DivList").children()
+            var l = s.length
+            var i = 0
+            setInterval(function() {
+                if (i == 1) {
+                    i = 0
+                }
+                var p = $(s[i].attr('src'))
+                $("#imgView").attr('src', p)
+                i++
+            }, 3000)
+
+            //jq ajax
+            $('.linkmenu').click(function() {
+                var v = $(this).attr('value');
+                $('#getContent').load('./pageJS/' + v + '.php')
+            })
+            // form 
             $('#formreg').submit(function() {
                 var username = $("input[name*='username']").val()
-                if (username.length === 0 || username.length < 6) {
+                if (username.length === 0 || username.length < 2) {
                     $("input[name*='username']").focus()
                     $("#noteForm").html("Username chưa hợp lệ!")
                     return false;
@@ -94,34 +110,45 @@
                     $("#noteForm").html("Điện thoại chưa hợp lệ!")
                     return false;
                 }
-                return true;
-            });
-
-
-
-
-
-
-
-        });
+                return true
+            })
+            // btn update
+            $("temps").click(function() {
+                var iduser = $(this).attr("value");
+                $("#right_inner").load("./element_vmk/mUser/userUpdate.php?iduser=" + iduser);
+            })
+        })
     </script>
 
 <body>
     <div id="top_div"></div>
-    <div id="left_div"> <?php require './element_vmk/left.php'; ?>
-    </div>
-    <div id="center_div">
-        <?php 
-            //require './pageJS/exjs01.php'; 
-        // require './pageJS/exjs02.php';
-       // require './pageJS/exjs03.php';
-           require './element_vmk/mUser/userView.php';
-       //require './element_vmk/mUser/center.php';
-       require './element_vmk/mUser/mod/userCls.php';
+    <div id="left_div">
+        <?php
+        require './element_vmk/left.php';
         ?>
     </div>
-    <div id="right_div"></div>
+    <div id="center_div">
+        <?php
+        //require './pageJS/exjs01.php'; 
+        // require './pageJS/exjs02.php';
+        // require './pageJS/exjs03.php';
+        //require './element_vmk/mUser/userView.php';
+        //require './element_vmk/mUser/center.php';
+        //require './element_vmk/mUser/mod/userCls.php';
+        require './element_vmk/center.php'
+        ?>
+    </div>
+    <div id="right_div">
+        <?php
+            require './element_vmk/right.php';
+        ?>
+    </div>
     <div id="bottom_div"></div>
+    <div id="signoutbutton">
+        <a href="./element_vmk/mUser/userAct.php?reqact=userlogout">
+            <img src="./img_vmk/logout.png" class="iconbutton" alt="">
+        </a>
+    </div>
 </body>
 
 </html>

@@ -20,31 +20,33 @@
                 <td>Giới tính:</td>
                 <td>
                     Nam<input type="radio" name="gioitinh" value="1" checked="true">
-                    Nữ<input type="radio" name="gioitinh" value="0"/>
-                </td> 
+                    Nữ<input type="radio" name="gioitinh" value="0" />
+                </td>
             </tr>
             <tr>
                 <td>Ngày sinh:</td>
-                <td><input type="date" name="ngaysinh"/></td>
+                <td><input type="date" name="ngaysinh" /></td>
             </tr>
             <tr>
                 <td>Địa chỉ:</td>
-                <td><input type="text" name="diachi"/></td>
+                <td><input type="text" name="diachi" /></td>
             </tr>
             <tr>
                 <td>Điện thoại:</td>
-                <td><input type="tel" name="dienthoai"/></td>
+                <td><input type="tel" name="dienthoai" /></td>
             </tr>
             <tr>
-                <td><input type="submit" id="btnsubmit" value="Tạo mới"/></td>
-                <td><input type="reset" value="Làm lại"/><b id="noteForm"></b></td>
+                <td><input type="submit" id="btnsubmit" value="Tạo mới" /></td>
+                <td><input type="reset" value="Làm lại" /><b id="noteForm"></b></td>
             </tr>
         </table>
     </form>
 </div>
-<hr/>
+
+<hr>
+
 <?php
-require './element_vmk/mUser/mod/userCls.php';
+require './element_vmk/mod/userCls.php'
 ?>
 <div class="title_user">Danh sách người dùng</div>
 <div class="content_user">
@@ -84,20 +86,61 @@ require './element_vmk/mUser/mod/userCls.php';
                         <td><?php echo $v->username; ?></td>
                         <td><?php echo $v->password; ?></td>
                         <td><?php echo $v->hoten; ?></td>
-                        <td><?php echo $v->gioitinh; ?></td>
+                        <td align="center">
+                            <?php
+                            if ($v->gioitinh == 0) {
+                            ?>
+                                <img class="iconimg" src="./img_vmk/girl.png" />
+                            <?php
+                            } else {
+                            ?>
+                                <img class="iconimg" src="./img_vmk/boy.png" />
+                            <?php
+                            }
+                            ?>
+                        </td>
+                        <!-- <td><?php //echo $v->gioitinh; ?></td> -->
                         <td><?php echo $v->ngaysinh; ?></td>
                         <td><?php echo $v->diachi; ?></td>
                         <td><?php echo $v->dienthoai; ?></td>
                         <td><?php echo $v->ngaydangky; ?></td>
-                        <td><?php echo $v->abtility; ?></td>
-                        <td>Xóa</td>
+                        <td align="center">
+                            <?php
+                                if ($v->ability == 0) {
+                                ?>
+                                    <a href="./element_vmk/mUser/userAct.php?reqact=setlock&iduser=<?php echo $v->iduser;?> &ability=<?php echo $v->ability;?>">
+                                        <img class="iconimg" src="./img_vmk/clock.png" />
+                                    </a>
+                                <?php
+                                } 
+                                else {
+                                ?>
+                                    <a href="./element_vmk/mUser/userAct.php?reqact=setlock&iduser=<?php echo $v->iduser;?> &ability=<?php echo $v->ability;?>">
+                                        <img class="iconimg" src="./img_vmk/unclock.png" />
+                                    </a>
+                                <?php
+                                }
+                            
+                            ?>
+                        </td>
+                        <!-- <td><?php //echo $v->abtility; ?></td> -->
+                        
+                        <td>
+                            <a href="./element_vmk/mUser/userAct.php?reqact=deleteuser&iduser=<?php echo $v->iduser;?>">
+                                <img class="iconimg" src="./img_vmk/delete.png" alt="">
+                            </a>
+
+                            <temps class="btnupdate" value="<?php echo $v->iduser;?>">
+                                <img class="iconimg" src="./img_vmk/update.png" alt="">
+                            </temps>
+                        </td>
                     </tr>
-                    <?php
-                    }
-                    ?>
+                <?php
+                }
+                ?>
             </tbody>
         </table>
-        <?php
+    <?php
     }
     ?>
 </div>
